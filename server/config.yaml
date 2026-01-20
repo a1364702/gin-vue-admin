@@ -10,7 +10,7 @@ autocode:
     root: /root/web/gin-vue-admin
     server: server
     module: github.com/flipped-aurora/gin-vue-admin/server
-    ai-path: ""
+    ai-path: "https://ai.gin-vue-admin.com/{FUNC}/moyLzhang/eed6c8b2-63f3-452b-9129-854adb2473e7"
 aws-s3:
     bucket: xxxxx-10005608
     region: ap-shanghai
