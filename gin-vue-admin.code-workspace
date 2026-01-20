@@ -2,11 +2,11 @@
   "folders": [
     {
       "path": "server",
-      "name": "backend"
+      "name": "server"
     },
     {
       "path": "web",
-      "name": "frontend"
+      "name": "web"
     },
     {
       "path": ".",
@@ -25,23 +25,23 @@
       {
         "type": "go",
         "request": "launch",
-        "name": "Backend",
-        "cwd": "${workspaceFolder:backend}",
-        "program": "${workspaceFolder:backend}/"
+        "name": "server",
+        "cwd": "${workspaceFolder:server}",
+        "program": "${workspaceFolder:server}/"
       },
       {
         "type": "node",
         "request": "launch",
-        "cwd": "${workspaceFolder:frontend}",
-        "name": "Frontend",
+        "cwd": "${workspaceFolder:web}",
+        "name": "web",
         "runtimeExecutable": "npm",
-        "runtimeArgs": ["run-script", "serve"]
+        "runtimeArgs": ["run", "serve"]
       }
     ],
     "compounds": [
       {
-        "name": "Both (Backend & Frontend)",
-        "configurations": ["Backend", "Frontend"],
+        "name": "Both (server & web)",
+        "configurations": ["server", "web"],
         "stopAll": true
       }
     ]
