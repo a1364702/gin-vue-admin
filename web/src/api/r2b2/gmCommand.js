@@ -121,3 +121,18 @@ export const getGmCommandPublic = () => {
     method: 'get',
   })
 }
+// ExcuteCommand 执行一个gm方法
+// @Tags GmCommand
+// @Summary 执行一个gm方法
+// @Accept application/json
+// @Produce application/json
+// @Param data body model.GmCommand true "执行的gm命令"
+// @Success 200 {object} response.Response{data=object,msg=string} "成功"
+// @Router /gm/excuteCommand [POST]
+export const excuteCommand = (data) => {
+  return service({
+    url: '/gm/excuteCommand',
+    method: 'POST',
+    data
+  })
+}

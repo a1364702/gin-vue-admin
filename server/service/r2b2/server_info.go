@@ -1,14 +1,17 @@
-
 package r2b2
 
 import (
 	"context"
+
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/r2b2"
-    r2b2Req "github.com/flipped-aurora/gin-vue-admin/server/model/r2b2/request"
+	r2b2Req "github.com/flipped-aurora/gin-vue-admin/server/model/r2b2/request"
 )
 
 type ServerInfoService struct {}
+
+var srvService = new(ServerInfoService)
+
 // CreateServerInfo 创建服务器信息记录
 // Author [yourname](https://github.com/yourname)
 func (srvService *ServerInfoService) CreateServerInfo(ctx context.Context, srv *r2b2.ServerInfo) (err error) {
@@ -41,8 +44,16 @@ func (srvService *ServerInfoService)UpdateServerInfo(ctx context.Context, srv r2
 // Author [yourname](https://github.com/yourname)
 func (srvService *ServerInfoService)GetServerInfo(ctx context.Context, ID string) (srv r2b2.ServerInfo, err error) {
 	err = global.GVA_DB.Where("id = ?", ID).First(&srv).Error
-	return
+	return srv, err
 }
+
+// GetServerInfoByServerId 根据ID获取服务器信息记录
+// Author [yourname](https://github.com/yourname)
+func (srvService *ServerInfoService)GetServerInfoByServerId(ctx context.Context, ID int64) (srv r2b2.ServerInfo, err error) {
+	err = global.GVA_DB.Where(&r2b2.ServerInfo{ServerId: &ID}).First(&srv).Error
+	return srv, err
+}
+
 // GetServerInfoInfoList 分页获取服务器信息记录
 // Author [yourname](https://github.com/yourname)
 func (srvService *ServerInfoService)GetServerInfoInfoList(ctx context.Context, info r2b2Req.ServerInfoSearch) (list []r2b2.ServerInfo, total int64, err error) {

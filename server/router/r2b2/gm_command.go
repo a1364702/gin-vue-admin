@@ -5,10 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type GmCommandRouter struct {}
+type GmCommandRouter struct{}
 
-// InitGmCommandRouter 初始化 GM命令 路由信息
-func (s *GmCommandRouter) InitGmCommandRouter(Router *gin.RouterGroup,PublicRouter *gin.RouterGroup) {
+func (s *GmCommandRouter) InitGmCommandRouter(Router *gin.RouterGroup, PublicRouter *gin.RouterGroup) {
 	gmRouter := Router.Group("gm").Use(middleware.OperationRecord())
 	gmRouterWithoutRecord := Router.Group("gm")
 	gmRouterWithoutAuth := PublicRouter.Group("gm")
@@ -17,6 +16,7 @@ func (s *GmCommandRouter) InitGmCommandRouter(Router *gin.RouterGroup,PublicRout
 		gmRouter.DELETE("deleteGmCommand", gmApi.DeleteGmCommand) // 删除GM命令
 		gmRouter.DELETE("deleteGmCommandByIds", gmApi.DeleteGmCommandByIds) // 批量删除GM命令
 		gmRouter.PUT("updateGmCommand", gmApi.UpdateGmCommand)    // 更新GM命令
+		gmRouter.POST("excuteCommand", gmApi.ExcuteCommand) // 执行gm命令
 	}
 	{
 		gmRouterWithoutRecord.GET("findGmCommand", gmApi.FindGmCommand)        // 根据ID获取GM命令

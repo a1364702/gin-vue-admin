@@ -1,13 +1,12 @@
 package r2b2
 
 import (
-	
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/r2b2"
-    r2b2Req "github.com/flipped-aurora/gin-vue-admin/server/model/r2b2/request"
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/r2b2"
+	r2b2Req "github.com/flipped-aurora/gin-vue-admin/server/model/r2b2/request"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type ServerInfoApi struct {}
@@ -129,7 +128,7 @@ func (srvApi *ServerInfoApi) FindServerInfo(c *gin.Context) {
     ctx := c.Request.Context()
 
 	ID := c.Query("ID")
-	resrv, err := srvService.GetServerInfo(ctx,ID)
+	resrv, err := srvService.GetServerInfo(ctx, ID)
 	if err != nil {
         global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败:" + err.Error(), c)

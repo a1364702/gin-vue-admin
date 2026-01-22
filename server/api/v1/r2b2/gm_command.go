@@ -1,13 +1,12 @@
 package r2b2
 
 import (
-	
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/r2b2"
-    r2b2Req "github.com/flipped-aurora/gin-vue-admin/server/model/r2b2/request"
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/r2b2"
+	r2b2Req "github.com/flipped-aurora/gin-vue-admin/server/model/r2b2/request"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type GmCommandApi struct {}
@@ -208,3 +207,33 @@ func (gmApi *GmCommandApi) GetGmCommandPublic(c *gin.Context) {
        "info": "不需要鉴权的GM命令接口信息",
     }, "获取成功", c)
 }
+// ExcuteCommand 执行一个gm方法
+// @Tags GmCommand
+// @Summary 执行一个gm方法
+// @Accept application/json
+// @Produce application/json
+// @Param data query r2b2Req.GmCommandSearch true "成功"
+// @Success 200 {object} response.Response{data=object,msg=string} "成功"
+// @Router /gm/excuteCommand [POST]
+func (gmApi *GmCommandApi)ExcuteCommand(c *gin.Context) {
+    // 创建业务用Context
+    ctx := c.Request.Context()
+    // 请添加自己的业务逻辑
+	var gm r2b2.GmCommand
+	err := c.ShouldBindJSON(&gm)
+	if err != nil {
+		global.GVA_LOG.Error("失败!", zap.Error(err))
+		response.FailWithMessage("失败", c)
+		return
+	}
+	var result string
+    result, err = gmService.ExcuteCommand(ctx, &gm)
+    if err != nil {
+        global.GVA_LOG.Error("失败!", zap.Error(err))
+   		response.FailWithMessage("失败", c)
+   		return
+   	}
+   	response.OkWithData(result,c)
+}
+
+

@@ -1,14 +1,16 @@
-
 package r2b2
 
 import (
 	"context"
+
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/r2b2"
-    r2b2Req "github.com/flipped-aurora/gin-vue-admin/server/model/r2b2/request"
+	r2b2Req "github.com/flipped-aurora/gin-vue-admin/server/model/r2b2/request"
 )
 
 type GmCommandService struct {}
+
+var gmService = new(GmCommandService)
 // CreateGmCommand 创建GM命令记录
 // Author [yourname](https://github.com/yourname)
 func (gmService *GmCommandService) CreateGmCommand(ctx context.Context, gm *r2b2.GmCommand) (err error) {
@@ -105,3 +107,24 @@ func (gmService *GmCommandService)GetGmCommandPublic(ctx context.Context) {
     // 此方法为获取数据源定义的数据
     // 请自行实现
 }
+
+// ExcuteCommand 执行一个gm方法
+// Author [yourname](https://github.com/yourname)
+func (gmService *GmCommandService)ExcuteCommand(ctx context.Context, gm *r2b2.GmCommand) (result string, err error) {
+	result = ""
+	var serverInfos []r2b2.ServerInfo
+	for _, zoneId := range gm.ExecuteServer{
+		serverInfo, err := srvService.GetServerInfoByServerId(ctx,  zoneId)
+		if err != nil {
+			return result, err
+		}
+		serverInfos = append(serverInfos, serverInfo)
+	}
+
+	for _, serverInfo := range serverInfos{
+		return "执行了命令" + *gm.Command + " 在" + *serverInfo.ServerName  + "中", nil
+	}
+    return "success", nil
+}
+
+

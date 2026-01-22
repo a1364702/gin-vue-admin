@@ -45,6 +45,7 @@
   "/src/view/login/index.vue": "Login",
   "/src/view/person/person.vue": "Person",
   "/src/view/r2b2/gmCommand/gmCommand.vue": "GmCommand",
+  "/src/view/r2b2/gmCommand/gmCommandExcute.vue": "GmCommandExcute",
   "/src/view/r2b2/gmCommand/gmCommandForm.vue": "GmCommandForm",
   "/src/view/r2b2/serverInfo/serverInfo.vue": "ServerInfo",
   "/src/view/r2b2/serverInfo/serverInfoForm.vue": "ServerInfoForm",
