@@ -136,6 +136,7 @@ func (srvApi *ServerInfoApi) FindServerInfo(c *gin.Context) {
 	}
 	response.OkWithData(resrv, c)
 }
+
 // GetServerInfoList 分页获取服务器信息列表
 // @Tags ServerInfo
 // @Summary 分页获取服务器信息列表
@@ -166,6 +167,35 @@ func (srvApi *ServerInfoApi) GetServerInfoList(c *gin.Context) {
         Total:    total,
         Page:     pageInfo.Page,
         PageSize: pageInfo.PageSize,
+    }, "获取成功", c)
+}
+
+// GetServerGroup 获取服务器分组信息
+// @Tags ServerInfo
+// @Summary 获取服务器分组信息
+// @Security ApiKeyAuth
+// @Accept application/json
+// @Produce application/json
+// @Success 200 {object} response.Response{data=response.PageResult,msg=string} "获取成功"
+// @Router /srv/GetServerGroup [get]
+func (srvApi *ServerInfoApi) GetServerGroup(c *gin.Context) {
+    // 创建业务用Context
+    ctx := c.Request.Context()
+
+	var pageInfo r2b2Req.ServerInfoSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	list, err := srvService.GetServerGroup(ctx)
+	if err != nil {
+	    global.GVA_LOG.Error("获取失败!", zap.Error(err))
+        response.FailWithMessage("获取失败:" + err.Error(), c)
+        return
+    }
+    response.OkWithDetailed(response.PageResult{
+        List:     list,
     }, "获取成功", c)
 }
 

@@ -21,6 +21,7 @@ func (s *ServerInfoRouter) InitServerInfoRouter(Router *gin.RouterGroup,PublicRo
 	{
 		srvRouterWithoutRecord.GET("findServerInfo", srvApi.FindServerInfo)        // 根据ID获取服务器信息
 		srvRouterWithoutRecord.GET("getServerInfoList", srvApi.GetServerInfoList)  // 获取服务器信息列表
+		srvRouterWithoutRecord.GET("getServerGroup", srvApi.GetServerGroup)  // 获取服务器分组信息
 	}
 	{
 	    srvRouterWithoutAuth.GET("getServerInfoPublic", srvApi.GetServerInfoPublic)  // 服务器信息开放接口

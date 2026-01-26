@@ -96,6 +96,22 @@ export const getServerInfoList = (params) => {
 }
 
 // @Tags ServerInfo
+// @Summary 获取服务器分组信息
+// @Security ApiKeyAuth
+// @Accept application/json
+// @Produce application/json
+// @Param data query request.PageInfo true "获取服务器分组信息"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /srv/getServerGroup [get]
+export const getServerGroup = (params) => {
+  return service({
+    url: '/srv/getServerGroup',
+    method: 'get',
+    params
+  })
+}
+
+// @Tags ServerInfo
 // @Summary 不需要鉴权的服务器信息接口
 // @Accept application/json
 // @Produce application/json

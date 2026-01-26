@@ -66,6 +66,16 @@ func (srvService *ServerInfoService)GetServerInfoInfoList(ctx context.Context, i
     if len(info.CreatedAtRange) == 2 {
      db = db.Where("created_at BETWEEN ? AND ?", info.CreatedAtRange[0], info.CreatedAtRange[1])
     }
+
+	if info.ServerStatus != nil {
+        db = db.Where("server_status = ?", *info.ServerStatus)
+    }
+
+	if (info.ServerGroup != nil) {
+		if (len(info.ServerGroup) > 0) {
+			db = db.Where("server_group in ?", info.ServerGroup)
+		}
+	}
     
 	err = db.Count(&total).Error
 	if err!=nil {
@@ -87,11 +97,23 @@ func (srvService *ServerInfoService)GetServerInfoInfoList(ctx context.Context, i
 	if limit != 0 {
        db = db.Limit(limit).Offset(offset)
     }
-
 	err = db.Find(&srvs).Error
 	return  srvs, total, err
 }
+
+// GetServerInfoInfoList 获取服务器分组信息
+// Author [yourname](https://github.com/yourname)
+func (srvService *ServerInfoService)GetServerGroup(ctx context.Context) (list []string, err error) {
+    // 创建db
+	db := global.GVA_DB.Model(&r2b2.ServerInfo{})
+    var groups []string
+
+    err = db.Distinct("server_group").Pluck("server_group", &groups).Error
+	return  groups, err
+}
+
 func (srvService *ServerInfoService)GetServerInfoPublic(ctx context.Context) {
     // 此方法为获取数据源定义的数据
     // 请自行实现
 }
+

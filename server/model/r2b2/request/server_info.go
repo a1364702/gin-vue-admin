@@ -1,9 +1,9 @@
-
 package request
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"time"
+
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
 type ServerInfoSearch struct{
@@ -11,4 +11,6 @@ type ServerInfoSearch struct{
     request.PageInfo
     Sort  string `json:"sort" form:"sort"`
     Order string `json:"order" form:"order"`
+    ServerStatus  *int `json:"serverStatus" form:"serverStatus"` 
+    ServerGroup []string `json:"serverGroup" form:"serverGroup"`
 }

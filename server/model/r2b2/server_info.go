@@ -1,6 +1,6 @@
-
 // 自动生成模板ServerInfo
 package r2b2
+
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
@@ -14,6 +14,7 @@ type ServerInfo struct {
   ServerIp  *string `json:"serverIp" form:"serverIp" gorm:"comment:服务器IP地址;column:server_ip;" binding:"required"`  //IP地址
   ServerPort  *int64 `json:"serverPort" form:"serverPort" gorm:"comment:服务器端口;column:server_port;" binding:"required"`  //端口
   ServerDesc  *string `json:"serverDesc" form:"serverDesc" gorm:"comment:服务器描述;column:server_desc;"`  //描述
+  ServerStatus  *int64 `json:"serverStatus" form:"serverStatus" gorm:"comment:服务器当前是什么状态;column:server_status;"`  //服务器状态
 }
 
 
