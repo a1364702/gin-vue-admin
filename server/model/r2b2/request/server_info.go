@@ -12,5 +12,5 @@ type ServerInfoSearch struct{
     Sort  string `json:"sort" form:"sort"`
     Order string `json:"order" form:"order"`
     ServerStatus  *int `json:"serverStatus" form:"serverStatus"` 
-    ServerGroup []string `json:"serverGroup" form:"serverGroup"`
+    ServerGroup []string `json:"serverGroup" form:"serverGroup[]"`
 }
